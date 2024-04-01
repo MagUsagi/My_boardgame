@@ -1,0 +1,33 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+
+    <div>
+        <a href="{% url 'cms:index' %}">Back to Home</a>
+    </div>
+    <div>
+        {% if game.image %}
+        <p><img src=" {{ game.image.url }}"></p>
+        {% endif %}
+    </div>
+
+    <h2>{{ game.title }}</h2>
+    <div>
+        {{ game.player }}
+    </div>
+
+    <div>
+        {{ game.time }}
+    </div>
+
+    <div>
+        {{ game.memo | linebreaks | urlize }}
+    </div>
+
+    <button><a class="btn btn-secondary" href="{% url 'cms:edit_game' game.pk %}">Edit</a></button>{% csrf_token %}
+
+    <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}
+        <button class="btn btn-danger" type="submit" onclick='return confirm("Are you sure?");'>Delete</button>
+    </form>
+
+{% endblock %}
