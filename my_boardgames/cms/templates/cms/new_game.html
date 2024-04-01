@@ -2,34 +2,31 @@
 
 {% block content %}
 
-    <div>
-        <a href="{% url 'cms:index' %}">Back to Home</a>
-    </div>
+<div class="container">
+    <div class="row">
+        <form action="{% url 'cms:new_game' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <legend class="border-bottom mb-4 text-center">Add Game</legend>
+            <fieldset class="form-group">
+                <label for="">Image</label>
+                <div class="form-control my-form-control">{{ form.image }}</div>
+                
+                <label for="">Board Game Title</label>
+                <div class="form-control my-form-control">{{ form.title }}</div>
 
-    <form action="{% url 'cms:new_game' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
-        <table>
-            <tr>
-                <th>image</th>
-                <td>{{ form.image }}</td>
-            </tr>
-            <tr>
-                <th>Board Game Title</th>
-                <td>{{ form.title }}</td>
-            </tr>
-            <tr>
-                <th>Number of Players</th>
-                <td>{{ form.player }} People</td>
-            </tr>
-            <tr>
-                <th>Playing Time</th>
-                <td>{{ form.time }}</td>
-            </tr>
-            <tr>
-                <th>MEMO</th>
-                <td>{{ form.memo }}</td>
-            </tr>
-        </table>
-        <button type="submit" class="btn btn-success">Save</button>
-    </form>
+                <label for="">Number of Players</label>
+                <div class="form-control my-form-control">{{ form.player }}</div>
+
+                <label for="">Playing Time</label>
+                <div class="form-control my-form-control">{{ form.time }}</div>
+
+                <label for="">MEMO</label>
+                <div class="form-control my-form-control">{{ form.memo }}</div>
+                
+                <button type="submit" class="btn btn-success">Save</button>
+                <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
+            </fieldset>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
