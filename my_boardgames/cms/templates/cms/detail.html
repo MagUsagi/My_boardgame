@@ -2,32 +2,35 @@
 
 {% block content %}
 
-    <div>
-        <a href="{% url 'cms:index' %}">Back to Home</a>
+<div class="container">
+    <div class="row">
+        <legend class="border-bottom mb-4 text-center">Game Details</legend>
+        <div class="col-sm-4">
+            <img class='boardgame-detail-image' src="{{ game.image.url }}" alt="plant image">
+        </div>
+        <div class="col-sm-8"> 
+            <ul>
+                <div id="cmNameDiv" data-name='{{ game }}'><h3>{{ game }}</h3></div>
+                <li id="categoryLi">Category: <span class="form-control my-form-control">{{ game.category }}</span></li>
+                <li id="infoLi">Amount of players:<span class="form-control my-form-control">{{ game.player }}</span></li>
+                <li id="infoLi">Game Time: <span class="form-control my-form-control">{{ game.time }}</span></li>
+                <li id="infoLi">MEMO: <span class="form-control my-form-control">{{ game.memo | linebreaks | urlize }}</span></li>
+            </ul>            
+        </div> 
     </div>
-    <div>
-        {% if game.image %}
-        <p><img src=" {{ game.image.url }}"></p>
-        {% endif %}
+ </div>
+ <div class="container">
+    <div class="row">
+        <div class="col-1">
+            <a href="{% url 'cms:edit_game' game.pk %}" class="btn btn-primary">Edit</a>
+        </div>
+        <div class="col-2">
+            <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}<button class="btn btn-danger" type="submit" onclick='return confirm("Are you sure?");'>Delete</button></form>
+        </div>
+        <div class="col-8">
+            <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
+        </div>
     </div>
-
-    <h2>{{ game.title }}</h2>
-    <div>
-        {{ game.player }}
-    </div>
-
-    <div>
-        {{ game.time }}
-    </div>
-
-    <div>
-        {{ game.memo | linebreaks | urlize }}
-    </div>
-
-    <button><a class="btn btn-secondary" href="{% url 'cms:edit_game' game.pk %}">Edit</a></button>{% csrf_token %}
-
-    <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}
-        <button class="btn btn-danger" type="submit" onclick='return confirm("Are you sure?");'>Delete</button>
-    </form>
+</div>   
 
 {% endblock %}

@@ -2,38 +2,38 @@
 
 {% block content %}
     
-        <div class="py-5">
-            <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    {% for game in games %}
-                        <div class="col">
-                            <div class="card shadow-sm">
-                                {% if game.image %}
-                                <img src=" {{ game.image.url }}" class="boardgame-img-responsive">
-                                {% else %}
-                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="{% url 'cms:detail' game.id %}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                                {% endif %}
-                            <div class="card-body">
-                                <p class="card-text">
-                                    <a href="{% url 'cms:detail' game.id %}" class="game-title">{{ game }}</a>
-                                </p>
-                            </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="#" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                            <div class="card-body">
-                                    <p class="card-text">
-                                            <a href="{% url 'cms:new_game' %}" class="game-title">Add New Game</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="main-container">
+        <h1 class="text-center">My Board Games</h3>
+        <div class="boardgames">
+            {% for game in games %}       
+                <div class="game" data-plant="{{ game.id }}">     
+                    <img class="thumbnail" src="{{ game.image.url }}" alt="game image" class="thumbnail">
+                    <button data-name="{{ game }}" class="btn btn-warning deleteBtn"><i class="fas fa-times"></i></button>
+                    
+                    <div class="infoDiv">
+                        <h5 class="text-center fw-bold"><a href="{% url 'cms:detail' game.id %}">{{ game }}</a></h5>
+                        <div><small class="waterinfo text-muted text-center">Last played: unknown</small></div>
+                        <div><small class="waterinfo text-muted text-center">Last winner: Sascha</small></div>
+                        <div><small class="waterinfo text-muted text-center">Plays: unknown</small></div>
+                    </div>  
                 </div>
+            {% endfor %}
+            <div class="addgame">
+                <h4><a href="{% url 'cms:new_game' %}"><i class="fas fa-plus"></i>  Add a game</a>
+                    </h4>
             </div>
+
         </div>
+    </div>
+    <div class="popup-container">
+        <div class="popup btn-outline-secondary">
+            <h3>Delete <span id="game_name">XXX</span> ?</h3>
+            <div>
+                <button id="yesBtn" class="myBtn btn-danger">Yes</button>
+                <button id="noBtn" class="myBtn btn-light">No</button>
+            </div>
+            
+        </div>
+    </div>
  
 {% endblock %}
