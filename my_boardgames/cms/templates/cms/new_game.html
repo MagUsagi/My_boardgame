@@ -3,9 +3,9 @@
 {% block content %}
 
 <div class="container">
+    <legend class="border-bottom mb-4 text-center">Add Game</legend>
     <div class="row">
         <form action="{% url 'cms:new_game' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
-            <legend class="border-bottom mb-4 text-center">Add Game</legend>
             <fieldset class="form-group">
                 <label for="">Image</label>
                 <div class="form-control my-form-control">{{ form.image }}</div>

@@ -1,26 +1,102 @@
-
-.boardgames-navbar{
-    padding-left: 10px;
-    background-color: #5d4257;
-    background-image: linear-gradient(315deg, #5d4257 0%, #a5c7b7 84%);
-    height: 75px;
-    color: #eaeaea;
-}
-
-body { 
+body {
+    background-color: #e2e1d9;
+    overflow: auto;
+    color:#463141;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
- 
+
 main {
     flex: 1;
     background-color: #F0F0F0;
 }
 
+.boardgame-content {
+    padding-top: 10px; /* ditance between content and footer */
+    padding-bottom: 10px; /* ditance between content and footer */
+}
+
+.boardgames { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 320px);
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
 .boardgame-img-responsive {
     width: auto;
-    height: 250px;
+    height: 200px; /* change picture height in index.html */
+    object-fit: cover;
+}
+.boardgame-navbar{
+    padding-left: 10px;
+    background-color: #ffaaed;
+    background-image: linear-gradient(315deg, #ffaaed 0%, #1ba364ab 74%);
+    height: 75px;
+    color: #eaeaea;
+}
+
+.boardgame-navbar-brand {
+    color: lightgray;
+}
+
+.game{
+    /* padding: 10px; */
+    box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+    height: 300px;
+    background-color: #f3f3f3;
+    overflow: auto;
+    position: relative;
+}
+
+.addgame{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    box-shadow: -1px 1px 3px -1px rgba(0, 0, 0, 0.75);
+    border: 1px dotted #7e978b;
+}
+
+.thumbnail{
+    display: block;
+    width: 100%;
+    height: 150px;
     object-fit: cover;
 }
 
+.deleteBtn { /* change to: .btn-game-delete */
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    font-size: 1.5rem;
+    color: rgb(112, 143,109);
+    opacity: 0;
+}
+
+.deleteBtn:hover{
+    opacity: 1;
+}
+
+.infoDiv{
+    padding: 15px;
+}
+
+.infoDiv:hover > .infoTextDiv{
+    display: block;
+}
+
+.boardgame-detail-image {
+    display: block;
+    margin: 20px auto;
+    height: 350px;
+    width: 350px;
+    object-fit: scale-down; /* alternative: contain */
+}

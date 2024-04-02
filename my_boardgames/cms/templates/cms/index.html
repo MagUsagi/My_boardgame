@@ -1,39 +1,45 @@
 {% extends 'cms/base.html' %}
 
 {% block content %}
-    
-    <div class="main-container">
-        <h1 class="text-center">My Board Games</h3>
-        <div class="boardgames">
-            {% for game in games %}       
-                <div class="game" data-plant="{{ game.id }}">     
-                    <img class="thumbnail" src="{{ game.image.url }}" alt="game image" class="thumbnail">
-                    <button data-name="{{ game }}" class="btn btn-warning deleteBtn"><i class="fas fa-times"></i></button>
-                    
-                    <div class="infoDiv">
-                        <h5 class="text-center fw-bold"><a href="{% url 'cms:detail' game.id %}">{{ game }}</a></h5>
-                        <div><small class="waterinfo text-muted text-center">Last played: unknown</small></div>
-                        <div><small class="waterinfo text-muted text-center">Last winner: Sascha</small></div>
-                        <div><small class="waterinfo text-muted text-center">Plays: unknown</small></div>
-                    </div>  
-                </div>
-            {% endfor %}
-            <div class="addgame">
-                <h4><a href="{% url 'cms:new_game' %}"><i class="fas fa-plus"></i>  Add a game</a>
-                    </h4>
-            </div>
 
+    <div class="container">
+        <h1 class="text-center">My Board Games</h1>
+        <div class="card-deck">
+            <div class="row row-cols1 row-cols-sm-2 row-cols-md-3 row cols-lg4 g-3">
+                {% for game in games %}       
+                <div class="col-sm">
+                    <div class="card">
+                        <!-- Game Cover Image -->
+                        {% if game.image %}  
+                            <img class="card-img-top boardgame-img-responsive" src="{{ game.image.url }}" alt="game image">
+                        {% else %}
+                            <img class="card-img-top boardgame-img-responsive" src="http://placehold.it/360x150" alt="game image">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><a href="{% url 'cms:detail' game.id %}">{{ game }}</a></h5>
+                            <p class="card-text">Last played: unknown</p>
+                            <p class="card-text">Last winner: Sascha</p>
+                            <p class="card-text">Plays: unknown</p>
+                            </p>
+                        </div>
+                        <!-- Delete button -->
+                        <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}<button class="btn btn-danger deleteBtn" type="submit" onclick='return confirm("Do you want to delete {{ game }}?");'><i class="fas fa-times"></i></button></form>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="col-sm">
+                    <div class="card">
+                        <img class="card-img-top boardgame-img-responsive" src="http://placehold.it/360x150" alt="game image">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><a href="{% url 'cms:new_game' %}"><i class="fas fa-plus"></i>  Add a game</a></h5>
+                        </div>
+                    </div>
+                </div>
+                
+            </div> 
         </div>
     </div>
-    <div class="popup-container">
-        <div class="popup btn-outline-secondary">
-            <h3>Delete <span id="game_name">XXX</span> ?</h3>
-            <div>
-                <button id="yesBtn" class="myBtn btn-danger">Yes</button>
-                <button id="noBtn" class="myBtn btn-light">No</button>
-            </div>
-            
-        </div>
-    </div>
- 
+
 {% endblock %}
