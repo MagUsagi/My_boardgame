@@ -6,7 +6,11 @@
     <div class="row">
         <legend class="border-bottom mb-4 text-center">Game Details</legend>
         <div class="col-sm-4">
-            <img class='boardgame-detail-image' src="{{ game.image.url }}" alt="plant image">
+            {% if game.image %}  
+                <img class='boardgame-detail-image' src="{{ game.image.url }}" alt="plant image">
+            {% else %}
+                <img class="thumbnail" src="http://placehold.it/360x150" alt="game image">
+            {% endif %}
         </div>
         <div class="col-sm-8"> 
             <ul>
