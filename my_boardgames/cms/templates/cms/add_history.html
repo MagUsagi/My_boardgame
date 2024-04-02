@@ -1,0 +1,26 @@
+{% extends 'cms/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <form action="{% url 'cms:add_history' game.id %}" method="POST">{% csrf_token %}
+            <legend class="border-bottom mb-4 text-center">Add Game Record</legend>
+            <fieldset class="form-group">
+                <label for="">Played Date</label>
+                <div class="form-control my-form-control">{{ form.date }}</div>
+                
+                <label for="">Board Game Title</label>
+                <div class="form-control my-form-control">{{ form.game }}</div>
+
+                <label for="">Duration</label>
+                <div class="form-control my-form-control">{{ form.duration }}</div>
+
+                <button type="submit" class="btn btn-success">Next</button>
+                <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

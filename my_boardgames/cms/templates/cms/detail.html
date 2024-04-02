@@ -37,4 +37,16 @@
     </div>
 </div>   
 
+{% for history in histories %}
+<div>
+    <h3>{{ history.date }}</h3>
+    <div>{{ history.duaration }}</div>
+    {% for result in results %}
+    <div>{{ result.player }} {{ result.score }} {{ result.winner }}</div>
+    {% endfor %}
+  </div>
+  <hr />
+  {% endfor %}
+  
+
 {% endblock %}
