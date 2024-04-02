@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Game
+from .models import Game, History, Result
 from django.shortcuts import get_object_or_404
-from .forms import GameForm
+from .forms import GameForm, HistoryForm, ResultForm
 from django.views.decorators.http import require_POST
 
 # Create your views here.
@@ -9,9 +9,13 @@ def index(request):
     games = Game.objects.all().order_by('-updated_datetime')
     return render(request, 'cms/index.html', { 'games': games })
 
-def detail(request, game_id):
+def detail(request, game_id,):
     game = get_object_or_404(Game, id=game_id)
-    return render(request, 'cms/detail.html', {'game': game})
+    histories = History.objects.filter(game=game_id)
+    # history = History.objects.filter(game=game)
+    results = Result.objects.all()
+    
+    return render(request, 'cms/detail.html', {'game': game, 'histories': histories, 'results': results})
 
 def new_game(request):
     if request.method == "POST":
@@ -40,3 +44,25 @@ def edit_game(request, game_id):
     else:
         form = GameForm(instance=game)
     return render(request, 'cms/edit_game.html', {'form': form, 'game':game })
+
+def add_history(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+    if request.method == "POST":
+        history = HistoryForm(request.POST)
+        if history.is_valid():
+            history.save()
+            return redirect('cms:add_result')
+    else:
+        history = HistoryForm
+    return render(request, 'cms/add_history.html', {'form': history, 'game':game })
+
+def add_result(request, history_id):
+    history = get_object_or_404(History, id=history_id)
+    if request.method == "POST":
+        result = ResultForm(request.POST)
+        if result.is_valid():
+            result.save()
+            return redirect('cms:detail.html')
+    else:
+        result = ResultForm
+    return render(request, 'cms/add_result.html', {'form': result, 'history': history,})

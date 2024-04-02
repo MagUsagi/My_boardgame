@@ -12,3 +12,20 @@ class Game(models.Model):
 
     def __str__(self):
         return self.title
+    
+class History(models.Model):
+    date = models.DateField()
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    duaration = models.CharField(max_length=50)
+
+    def __str__(self):
+        return str(self.date) + " (" + str(self.game_id) + ")"
+
+class Result(models.Model):
+    history = models.ForeignKey(History, on_delete=models.CASCADE)
+    player = models.CharField(max_length=100)
+    score = models.IntegerField(default=None, blank=True, null=True)
+    winner = models.BooleanField()
+
+    def __str__(self):
+        return self.player
