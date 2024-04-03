@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Game(models.Model):
@@ -14,12 +15,12 @@ class Game(models.Model):
         return self.title
     
 class History(models.Model):
-    date = models.DateField()
+    date = models.DateField(default=timezone.now)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     duaration = models.CharField(max_length=50)
 
     def __str__(self):
-        return str(self.date) + " (" + str(self.game_id) + ")"
+        return str(self.date) + " (" + str(self.game) + ")"
 
 class Result(models.Model):
     history = models.ForeignKey(History, on_delete=models.CASCADE)

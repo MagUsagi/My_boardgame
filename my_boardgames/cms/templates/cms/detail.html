@@ -47,6 +47,11 @@
   </div>
   <hr />
   {% endfor %}
-  
+
+<div class="row">
+    <div class="col-1">
+    <a href="{% url 'cms:add_history' game.pk %}" class="btn btn-primary">Add Records</a>
+    </div>
+</div>
 
 {% endblock %}
