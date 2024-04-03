@@ -18,6 +18,7 @@
                     <div class="text-center">
                         <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
                         <a href="{% url 'cms:edit_game' game.pk %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'cms:add_history' game.pk %}" class="btn btn-primary">Add Records</a>
                     </div>  
                 </div>
             </div>    
@@ -115,5 +116,5 @@
     </div>
 </div>
 </div>
-  
+
 {% endblock %}

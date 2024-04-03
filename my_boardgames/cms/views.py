@@ -40,20 +40,22 @@ def edit_game(request, game_id):
         form = GameForm(request.POST, request.FILES, instance=game)
         if form.is_valid():
             upload_image = form.save()
-            return redirect('cms:index')
+            return redirect('cms:detail', game_id)
     else:
         form = GameForm(instance=game)
     return render(request, 'cms/edit_game.html', {'form': form, 'game':game })
 
 def add_history(request, game_id):
     game = get_object_or_404(Game, id=game_id)
+    history_id = History.id
     if request.method == "POST":
         history = HistoryForm(request.POST)
         if history.is_valid():
             history.save()
-            return redirect('cms:add_result')
+            return redirect('cms:add_result', pk=history_id)
     else:
         history = HistoryForm
+    
     return render(request, 'cms/add_history.html', {'form': history, 'game':game })
 
 def add_result(request, history_id):
