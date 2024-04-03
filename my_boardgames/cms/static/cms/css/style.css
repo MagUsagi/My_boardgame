@@ -34,6 +34,14 @@ main {
     object-fit: cover;
 }
 
+.boardgame-detail-image {
+    display: block;
+    margin: 20px auto;
+    height: 350px;
+    width: 350px;
+    object-fit: scale-down; /* alternative: contain */
+}
+
 .boardgame-btn-delete { 
     border: none;
     background-color: transparent;
@@ -49,21 +57,3 @@ main {
     opacity: 1;
 }
 
-
-
-
-.infoDiv{
-    padding: 15px;
-}
-
-.infoDiv:hover > .infoTextDiv{
-    display: block;
-}
-
-.boardgame-detail-image {
-    display: block;
-    margin: 20px auto;
-    height: 350px;
-    width: 350px;
-    object-fit: scale-down; /* alternative: contain */
-}

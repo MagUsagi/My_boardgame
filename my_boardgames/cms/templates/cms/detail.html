@@ -24,63 +24,78 @@
         </div>
         <div class="col"> 
             <ul>
-                <div id="cmNameDiv" data-name='{{ game }}'><h3>{{ game }}</h3></div>
-                <li id="categoryLi">Category: <span class="form-control my-form-control">{{ game.category }}</span></li>
-                <li id="infoLi">Amount of players:<span class="form-control my-form-control">{{ game.player }}</span></li>
-                <li id="infoLi">Game Time: <span class="form-control my-form-control">{{ game.time }}</span></li>
-                <li id="infoLi">MEMO: <span class="form-control my-form-control">{{ game.memo | linebreaks | urlize }}</span></li>
+                <div id="" data-name='{{ game }}'><h3>{{ game }}</h3></div>
+                <!-- <label for="game-category">Category</label><span class="form-control" id="game-category">{{ game.category }}</span> -->
+                <label for="game-player">Amount of players</label><span class="form-control" id="game-player">{{ game.player }}</span>
+                <label for="game-time">Game Time</label><span class="form-control" id="game-time">{{ game.time }}</span>
+                <label for="game-memo">MEMO</label><span class="form-control" id="game-memo">{{ game.memo | linebreaks | urlize }}</span>
             </ul>            
         </div> 
     </div>
 
-
-    <div class="row">
+    <div class="row p-2">
         <div class="col">
             <legend class="border-bottom mb-4 text-center">Game Results</legend> 
         </div>
     </div>
 
-    
-    {% for history in histories %}
-    <div class="accordion" id="accordionGameHistory">
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ history.id }}" aria-expanded="true" aria-controls="collapse{{ history.id }}">
-                    Game ID {{ history.id }}, played on {{ history.date }} ({{ history.duaration }})
-                </button>
-            </h2>
-            <div id="collapse{{ history.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionGameHistory">
-                <div class="accordion-body">
-                    <table class="table table-sm table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Score</th>
-                                <th scope="col">Winner</th>
-                            </tr>
-                        </thead>
+    {% if histories %}
+        {% for history in histories %}
+        <div class="accordion" id="accordionGameHistory{{ history.id }}">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ history.id }}" aria-expanded="false" aria-controls="collapse{{ history.id }}">
+                        Game ID {{ history.id }}, played on {{ history.date }} ({{ history.duaration }})
+                    </button>
+                </h2>
+                <div id="collapse{{ history.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionGameHistory{{ history.id }}">
+                    <div class="accordion-body">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Score</th>
+                                    <th scope="col">Winner</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                        {% for result in results %}
-                        <tr>
-                            <td scope="row">{{ result.player }}</td>
-                            <td scope="row">{{ result.score }}</td>
-                            <td scope="row">{{ result.winner }}</td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>  
-            </div>    
-        </div>   
-    </div>        
-    {% endfor %}
+                            <tbody>
+                            {% for result in results %}
+                                <tr>
+                                    <td scope="row">{{ result.player }}</td>
+                                    <td scope="row">{{ result.score }}</td>
+                                    <td scope="row">{{ result.winner }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>  
+                </div>    
+            </div>   
+        </div>        
+        {% endfor %}
+    {% else %}
+    <div class="row p-2">
+        <div class="col text-center">
+            <p class="lead">
+                No Game Results found
+            </p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row p-2">
+        <div class="col">
+            <!-- Button Delete Game -->
+            <div class="text-center">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGame">Delete Game</button>
+            </div>
+        </div>
+    </div>
+
 </div> 
  
-<!-- Button Delete Game -->
-<div class="text-center">
-    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGame">Delete Game</button>
-</div>
+
   
 <!-- Modal Delete Game -->
 <div class="modal fade" id="deleteGame" tabindex="-1" aria-labelledby="deleteGameLabel" aria-hidden="true">
