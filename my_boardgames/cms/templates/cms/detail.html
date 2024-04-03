@@ -3,16 +3,26 @@
 {% block content %}
 
 <div class="container">
-    <div class="row">
-        <legend class="border-bottom mb-4 text-center">Game Details</legend>
-        <div class="col-sm-4">
-            {% if game.image %}  
-                <img class='boardgame-detail-image' src="{{ game.image.url }}" alt="plant image">
-            {% else %}
-                <img class="thumbnail" src="http://placehold.it/360x150" alt="game image">
-            {% endif %}
+    <legend class="border-bottom mb-4 text-center">Game Details</legend>
+    <div class="row row-cols-1 row-cols-xs-1 row-cols-sm-1 row-cols-md-2 cols-lg-2 cols-xl-2 cols-xxl-2">
+        <div class="col">
+            <div class="row">
+                <div class="col col-12">
+                {% if game.image %}  
+                    <img class="boardgame-detail-image img-fluid" src="{{ game.image.url }}" alt="plant image">
+                {% else %}
+                    <img class="boardgame-detail-image img-fluid" src="http://placehold.it/360x150" alt="game image">
+                {% endif %}
+                </div> 
+                <div class="col align-items-end" >
+                    <div class="text-center">
+                        <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
+                        <a href="{% url 'cms:edit_game' game.pk %}" class="btn btn-primary">Edit</a>
+                    </div>  
+                </div>
+            </div>    
         </div>
-        <div class="col-sm-8"> 
+        <div class="col"> 
             <ul>
                 <div id="cmNameDiv" data-name='{{ game }}'><h3>{{ game }}</h3></div>
                 <li id="categoryLi">Category: <span class="form-control my-form-control">{{ game.category }}</span></li>
@@ -22,31 +32,73 @@
             </ul>            
         </div> 
     </div>
- </div>
- <div class="container">
+
+
     <div class="row">
-        <div class="col-1">
-            <a href="{% url 'cms:edit_game' game.pk %}" class="btn btn-primary">Edit</a>
-        </div>
-        <div class="col-2">
-            <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}<button class="btn btn-danger" type="submit" onclick='return confirm("Are you sure?");'>Delete</button></form>
-        </div>
-        <div class="col-8">
-            <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
+        <div class="col">
+            <legend class="border-bottom mb-4 text-center">Game Results</legend> 
         </div>
     </div>
-</div>   
 
-{% for history in histories %}
-<div>
-    <h3>{{ history.date }}</h3>
-    <div>{{ history.duaration }}</div>
-    {% for result in results %}
-    <div>{{ result.player }} {{ result.score }} {{ result.winner }}</div>
+    
+    {% for history in histories %}
+    <div class="accordion" id="accordionGameHistory">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ history.id }}" aria-expanded="true" aria-controls="collapse{{ history.id }}">
+                    Game ID {{ history.id }}, played on {{ history.date }} ({{ history.duaration }})
+                </button>
+            </h2>
+            <div id="collapse{{ history.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionGameHistory">
+                <div class="accordion-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">Winner</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for result in results %}
+                        <tr>
+                            <td scope="row">{{ result.player }}</td>
+                            <td scope="row">{{ result.score }}</td>
+                            <td scope="row">{{ result.winner }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>  
+            </div>    
+        </div>   
+    </div>        
     {% endfor %}
-  </div>
-  <hr />
-  {% endfor %}
+</div> 
+ 
+<!-- Button Delete Game -->
+<div class="text-center">
+    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGame">Delete Game</button>
+</div>
   
-
+<!-- Modal Delete Game -->
+<div class="modal fade" id="deleteGame" tabindex="-1" aria-labelledby="deleteGameLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteGameLabel">Delete {{ game }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        Do you want to delete {{ game }}?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}<button class="btn btn-danger" type="submit" onclick='return confirm("Are you sure?");'>Delete</button></form>
+    </div>
+    </div>
+</div>
+</div>
+  
 {% endblock %}

@@ -5,15 +5,15 @@
     <div class="container">
         <h1 class="text-center">My Board Games</h1>
         <div class="card-deck">
-            <div class="row row-cols1 row-cols-sm-2 row-cols-md-3 row cols-lg4 g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 cols-lg-4 g-3">
                 {% for game in games %}       
                 <div class="col-sm">
                     <div class="card">
                         <!-- Game Cover Image -->
                         {% if game.image %}  
-                            <img class="card-img-top boardgame-img-responsive" src="{{ game.image.url }}" alt="game image">
+                            <img class="card-img-top boardgame-card-img-responsive" src="{{ game.image.url }}" alt="game image">
                         {% else %}
-                            <img class="card-img-top boardgame-img-responsive" src="http://placehold.it/360x150" alt="game image">
+                            <img class="card-img-top boardgame-card-img-responsive" src="http://placehold.it/360x150" alt="game image">
                         {% endif %}
 
                         <div class="card-body">
@@ -24,14 +24,14 @@
                             </p>
                         </div>
                         <!-- Delete button -->
-                        <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}<button class="btn btn-danger deleteBtn" type="submit" onclick='return confirm("Do you want to delete {{ game }}?");'><i class="fas fa-times"></i></button></form>
+                        <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}<button class="btn btn-danger boardgame-btn-delete" type="submit" onclick='return confirm("Do you want to delete {{ game }}?");'><i class="fas fa-times"></i></button></form>
                     </div>
                 </div>
                 {% endfor %}
 
                 <div class="col-sm">
                     <div class="card">
-                        <img class="card-img-top boardgame-img-responsive" src="http://placehold.it/360x150" alt="game image">
+                        <img class="card-img-top boardgame-card-img-responsive" src="http://placehold.it/360x150" alt="game image">
                         <div class="card-body">
                             <h5 class="card-title text-center"><a href="{% url 'cms:new_game' %}"><i class="fas fa-plus"></i>  Add a game</a></h5>
                         </div>
@@ -41,5 +41,5 @@
             </div> 
         </div>
     </div>
-
+ 
 {% endblock %}
