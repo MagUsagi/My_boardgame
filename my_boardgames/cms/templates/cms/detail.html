@@ -46,7 +46,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ history.id }}" aria-expanded="false" aria-controls="collapse{{ history.id }}">
-                        Game ID {{ history.id }}, played on {{ history.date }} ({{ history.duaration }})
+                        Game ID {{ history.id }}, played on {{ history.date }} ({{ history.duaration }} Min)
                     </button>
                 </h2>
                 <div id="collapse{{ history.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionGameHistory{{ history.id }}">
@@ -70,13 +70,6 @@
                                         </tr>
                                      {% endif %}
                                 {% endfor %}
-                                <!-- {% for result in results %}
-                                <tr>
-                                    <td scope="row">{{ result.player }}</td>
-                                    <td scope="row">{{ result.score }}</td>
-                                    <td scope="row">{{ result.winner }}</td>
-                                </tr>
-                            {% endfor %} -->
                             </tbody>
                         </table>
                     </div>  

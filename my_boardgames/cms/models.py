@@ -23,7 +23,7 @@ class Player(models.Model):
 class History(models.Model):
     date = models.DateField(default=timezone.now)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    duaration = models.CharField(max_length=50)
+    duaration = models.PositiveIntegerField()
 
     def __str__(self):
         return str(self.pk) + " - " + str(self.date) + " (" + str(self.game) + ")"
