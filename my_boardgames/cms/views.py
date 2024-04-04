@@ -3,6 +3,7 @@ from .models import Game, History, Result
 from django.shortcuts import get_object_or_404
 from .forms import GameForm, HistoryForm, ResultForm
 from django.views.decorators.http import require_POST
+from django.db.models import Count, Sum, Q
 
 # Create your views here.
 def index(request):
@@ -12,9 +13,9 @@ def index(request):
 def detail(request, game_id,):
     game = get_object_or_404(Game, id=game_id)
     histories = History.objects.filter(game=game_id)
-    # history = History.objects.filter(game=game)
-    results = Result.objects.all()
-    
+    # Query to retrieve results by date
+    results = Result.objects.filter(history__game=game_id).order_by('history__date', 'player__name')
+
     return render(request, 'cms/detail.html', {'game': game, 'histories': histories, 'results': results})
 
 def new_game(request):

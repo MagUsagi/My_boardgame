@@ -61,13 +61,22 @@
                             </thead>
 
                             <tbody>
-                            {% for result in results %}
+                                {% for result in results %}
+                                     {% if result.history_id == history.id %}
+                                        <tr>
+                                            <td>{{ result.player.name }}</td>
+                                            <td>{{ result.score }}</td>
+                                            <td>{{ result.winner }}</td>
+                                        </tr>
+                                     {% endif %}
+                                {% endfor %}
+                                <!-- {% for result in results %}
                                 <tr>
                                     <td scope="row">{{ result.player }}</td>
                                     <td scope="row">{{ result.score }}</td>
                                     <td scope="row">{{ result.winner }}</td>
                                 </tr>
-                            {% endfor %}
+                            {% endfor %} -->
                             </tbody>
                         </table>
                     </div>  
