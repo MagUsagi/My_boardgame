@@ -8,7 +8,15 @@ from django.db.models import Count, Sum, Q
 # Create your views here.
 def index(request):
     games = Game.objects.all().order_by('-updated_datetime')
-    return render(request, 'cms/index.html', { 'games': games })
+    if request.method == "POST":
+        form = GameForm(request.POST, request.FILES)
+        if form.is_valid():
+            upload_image = form.save()
+            return redirect('cms:index')
+    else:
+        form = GameForm
+    return render(request, 'cms/index.html', { 'games': games,'form': form })
+
 
 def detail(request, game_id,):
     game = get_object_or_404(Game, id=game_id)

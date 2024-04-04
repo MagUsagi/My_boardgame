@@ -5,26 +5,39 @@
 <div class="container">
     <legend class="border-bottom mb-4 text-center">Add Game</legend>
     <div class="row">
-        <form action="{% url 'cms:new_game' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
-            <fieldset class="form-group">
-                <label for="">Image</label>
-                <div class="form-control my-form-control">{{ form.image }}</div>
+        <form action="{% url 'cms:new_game' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+          
                 
-                <label for="">Board Game Title</label>
-                <div class="form-control my-form-control">{{ form.title }}</div>
-
-                <label for="">Number of Players</label>
-                <div class="form-control my-form-control">{{ form.player }}</div>
-
-                <label for="">Playing Time</label>
-                <div class="form-control my-form-control">{{ form.time }}</div>
-
-                <label for="">MEMO</label>
-                <div class="form-control my-form-control">{{ form.memo }}</div>
+                <div class="mb-3">   
+                    <label for="id_image" class="form-label">Image</label>
+                    {{ form.image }}
+                </div>
                 
-                <button type="submit" class="btn btn-success">Save</button>
-                <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
-            </fieldset>
+                <div class="mb-3">   
+                    <label for="id_title" class="form-label">Board Game Title</label>
+                    {{ form.title }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_player" class="form-label">Number of Players</label>
+                    {{ form.player }}
+                </div>
+
+                <div class="mb-3">  
+                    <label for="id_time" class="form-label">Playing Time</label>
+                    {{ form.time }}
+                </div>
+
+                <div class="mb-3"> 
+                    <label for="id_memo" class="form-label">MEMO</label>
+                    {{ form.memo }}
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
+                </div>
+       
         </form>
     </div>
 </div>

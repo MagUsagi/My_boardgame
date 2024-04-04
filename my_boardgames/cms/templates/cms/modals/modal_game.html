@@ -1,0 +1,45 @@
+<div class="modal fade" id="addGame" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addGameLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addGameLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'cms:index' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="mb-3">   
+                        <label for="id_image" class="form-label">Image</label>
+                        {{ form.image }}
+                    </div>
+                    
+                    <div class="mb-3">   
+                        <label for="id_title" class="form-label">Board Game Title</label>
+                        {{ form.title }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_player" class="form-label">Number of Players</label>
+                        {{ form.player }}
+                    </div>
+
+                    <div class="mb-3">  
+                        <label for="id_time" class="form-label">Playing Time</label>
+                        {{ form.time }}
+                    </div>
+
+                    <div class="mb-3"> 
+                        <label for="id_memo" class="form-label">MEMO</label>
+                        {{ form.memo }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
