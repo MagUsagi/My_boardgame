@@ -67,7 +67,21 @@
                                         <tr>
                                             <td>{{ result.player.name }}</td>
                                             <td>{{ result.score }}</td>
-                                            <td>{{ result.winner }}</td>
+                                            <td>
+                                                {% if result.winner == True %}
+                                                    {% if result.player.name == "Mag" %}
+                                                        <i class="fas fa-trophy" style="color: #d828cf;"></i>
+                                                    {% elif result.player.name == "Hurrikan" %}
+                                                        <i class="fas fa-trophy" style="color: #2f882f;"></i>
+                                                    {% elif result.player.name == "Giusy" or result.player.name == "Gizmo" %}
+                                                        <i class="fas fa-cat" style="color: #2f882f;"></i>
+                                                    {% else %}
+                                                        <i class="fas fa-trophy"></i>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <i class="fa-sharp fa-solid fa-x" style="color: #ff2d32;"></i>
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                      {% endif %}
                                 {% endfor %}
