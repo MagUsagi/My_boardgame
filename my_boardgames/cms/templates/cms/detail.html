@@ -17,8 +17,9 @@
                 <div class="col align-items-end" >
                     <div class="text-center">
                         <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
-                        <a href="{% url 'cms:edit_game' game.pk %}" class="btn btn-primary">Edit</a>
-                        <a href="{% url 'cms:add_history' game.pk %}" class="btn btn-primary">Add Records</a>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGame">Edit</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHistory">Add Records</button>
+                        <!-- <a href="{% url 'cms:add_history' game.pk %}" class="btn btn-primary">Add Records</a> -->
                     </div>  
                 </div>
             </div>    
@@ -26,7 +27,7 @@
         <div class="col"> 
             <ul>
                 <div id="" data-name='{{ game }}'><h3>{{ game }}</h3></div>
-                <!-- <label for="game-category">Category</label><span class="form-control" id="game-category">{{ game.category }}</span> -->
+                <label for="game-category">Category</label><span class="form-control" id="game-category">{{ game.category }}</span>
                 <label for="game-player">Amount of players</label><span class="form-control" id="game-player">{{ game.player }}</span>
                 <label for="game-time">Game Time</label><span class="form-control" id="game-time">{{ game.time }}</span>
                 <label for="game-memo">MEMO</label><span class="form-control" id="game-memo">{{ game.memo | linebreaks | urlize }}</span>
@@ -100,5 +101,11 @@
  
 <!-- Modal Delete Game -->
 {% include "cms/modals/modal_delete_game.html" %}
+
+<!-- Modal Game -->
+{% include "cms/modals/modal_game.html" %}
+
+<!-- Modal Add Record -->
+{% include "cms/modals/modal_history.html" %}
 
 {% endblock %}

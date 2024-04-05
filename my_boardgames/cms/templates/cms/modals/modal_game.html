@@ -1,11 +1,20 @@
-<div class="modal fade" id="addGame" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addGameLabel" aria-hidden="true">
+<div class="modal fade" id="modalGame" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalGameLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addGameLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            {% if form.instance.id %}
+                <h1 class="modal-title fs-5" id="modalGameLabel">Edit {{ game }} </h1> 
+            {% else %}
+                <h1 class="modal-title fs-5" id="modalGameLabel">Add Game</h1>
+            {% endif %}
+          
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{% url 'cms:index' %}" method="POST" enctype="multipart/form-data">
+        {% if form.instance.id %}
+            <form action="{% url 'cms:edit_game' game.id %}" method="POST" enctype="multipart/form-data">
+        {% else %}
+            <form action="{% url 'cms:new_game' %}" method="POST" enctype="multipart/form-data">
+        {% endif %}
         {% csrf_token %}
             <div class="modal-body">
                 <div class="row">
@@ -17,6 +26,11 @@
                     <div class="mb-3">   
                         <label for="id_title" class="form-label">Board Game Title</label>
                         {{ form.title }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_category" class="form-label">Category</label>
+                        {{ form.category }}
                     </div>
 
                     <div class="mb-3">
