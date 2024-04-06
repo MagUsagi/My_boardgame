@@ -3,6 +3,7 @@ from .models import Game, History, Result
 from django.shortcuts import get_object_or_404
 from .forms import GameForm, HistoryForm, ResultForm
 from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -17,12 +18,25 @@ def detail(request, game_id,):
     histories = History.objects.filter(game=game_id)
     # Query to retrieve results by date
     results = Result.objects.filter(history__game=game_id).order_by('-score')
-    # Form to edit the Game
-    form = GameForm(instance=game)
-    history_form = HistoryForm
-    result_form = ResultForm
-    
-    return render(request, 'cms/detail.html', {'game': game, 'histories': histories, 'results': results, 'form': form, 'history_form': history_form, 'result_form': result_form})
+    # # Form to edit the Game
+    # form = GameForm(instance=game)
+    # history_form = HistoryForm
+    # result_form = ResultForm
+    # history_form = HistoryForm(request.POST or None)
+    # result_form = ResultForm(request.POST or None)
+
+    # if request.method == "POST":
+    #     if history_form.is_valid() and result_form.is_valid():
+    #         history_instance = history_form.save(commit=False)
+    #         history_instance.game = game
+    #         history_instance.save()
+
+    #         result_instance = result_form.save(commit=False)
+    #         result_instance.history = history_instance
+    #         result_instance.save()
+    #         return redirect('detail', game_id=game_id)
+
+    return render(request, 'cms/detail.html', {'game': game, 'histories': histories, 'results': results})
 
 ### Game ####
 def new_game(request):
@@ -77,3 +91,27 @@ def add_result(request, history_id):
     else:
         result = ResultForm
     return render(request, 'cms/add_result.html', {'form': result, 'history': history,})
+
+def save_records(request):
+    if request.method == 'POST':
+        # HistoryFormとResultFormのデータを取得
+        history_form = HistoryForm(request.POST)
+        result_form = ResultForm(request.POST)
+
+        # 両方のフォームが有効であれば保存
+        if history_form.is_valid() and result_form.is_valid():
+            history_instance = history_form.save(commit=False)
+            result_instance = result_form.save(commit=False)
+
+            # フォームの関連付け
+            result_instance.history = history_instance
+            
+            # 保存
+            history_instance.save()
+            result_instance.save()
+
+            return JsonResponse({'message': 'Records saved successfully!'})
+        else:
+            return JsonResponse({'error': 'Invalid form data'}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)

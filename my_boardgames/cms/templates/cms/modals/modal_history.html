@@ -2,7 +2,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-            {% if form.instance.id %}
+            {% if history_form.form.instance.id %}
                 <h1 class="modal-title fs-5" id="modalHistoryLabel">Edit History Entry (Game ID {{ history.id }})</h1> 
             {% else %}
                 <h1 class="modal-title fs-5" id="modalHistoryLabel">Add History Entry</h1>
@@ -11,9 +11,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         {% if history_form.instance.id %}
-            <form action="{% url 'cms:add_history' game.id %}" method="POST" enctype="multipart/form-data">
+            <form action="{% url 'save_records' %}" method="POST" enctype="multipart/form-data">
         {% else %}
-            <!-- add form to edit History entries  -->
+            <!-- add form to edit History entries  --><form action="{% url 'cms:detail' game.id %}" method="POST" enctype="multipart/form-data"></form>
         {% endif %}
         {% csrf_token %}
             <div class="modal-body">
@@ -35,24 +35,24 @@
                 </div>
 
                 <div class="row">
-                    <div class="mb-3">   
+                    <!-- <div class="mb-3">   
                         <label for="id_date" class="form-label">History</label>
-                        {{ history_form.history }}
-                    </div>
+                        {{ result_form.history }}
+                    </div> -->
                     
                     <div class="mb-3">   
                         <label for="id_game" class="form-label">Player Name</label>
-                        {{ history_form.player }}
+                        {{ result_form.player }}
                     </div>
  
                     <div class="mb-3">
                         <label for="id_duaration" class="form-label">Score</label>
-                        {{ history_form.score }}
+                        {{ result_form.score }}
                     </div>
 
                     <div class="mb-3">
                         <div class="form-check">
-                            {{ history_form.winner }}
+                            {{ result_form.winner }}
                             <label class="form-check-label" for="id_winner">Are You Winner?</label>
                         </div>
                     </div>
