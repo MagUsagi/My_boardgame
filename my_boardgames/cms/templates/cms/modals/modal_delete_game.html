@@ -10,7 +10,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}<button class="btn btn-danger" type="submit" onclick='return confirm("Are you sure?");'>Delete</button></form>
+            <form method="post" action="{% url 'cms:delete_game' game.pk %}">{% csrf_token %}<button class="btn btn-danger" type="submit">Delete</button></form>
         </div>
         </div>
     </div>

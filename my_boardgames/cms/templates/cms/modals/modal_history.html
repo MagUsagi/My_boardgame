@@ -1,0 +1,69 @@
+<div class="modal fade" id="modalHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalHistoryLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            {% if form.instance.id %}
+                <h1 class="modal-title fs-5" id="modalHistoryLabel">Edit History Entry (Game ID {{ history.id }})</h1> 
+            {% else %}
+                <h1 class="modal-title fs-5" id="modalHistoryLabel">Add History Entry</h1>
+            {% endif %}
+          
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        {% if history_form.instance.id %}
+            <form action="{% url 'cms:add_history' game.id %}" method="POST" enctype="multipart/form-data">
+        {% else %}
+            <!-- add form to edit History entries  -->
+        {% endif %}
+        {% csrf_token %}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="mb-3">   
+                        <label for="id_date" class="form-label">Played Date</label>
+                        {{ history_form.date }}
+                    </div>
+                    
+                    <div class="mb-3">   
+                        <label for="id_game" class="form-label">Board Game Title</label>
+                        {{ history_form.game }}
+                    </div>
+ 
+                    <div class="mb-3">
+                        <label for="id_duaration" class="form-label">Duration</label>
+                        {{ history_form.duaration }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3">   
+                        <label for="id_date" class="form-label">History</label>
+                        {{ history_form.history }}
+                    </div>
+                    
+                    <div class="mb-3">   
+                        <label for="id_game" class="form-label">Player Name</label>
+                        {{ history_form.player }}
+                    </div>
+ 
+                    <div class="mb-3">
+                        <label for="id_duaration" class="form-label">Score</label>
+                        {{ history_form.score }}
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ history_form.winner }}
+                            <label class="form-check-label" for="id_winner">Are You Winner?</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
