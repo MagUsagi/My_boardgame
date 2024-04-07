@@ -18,8 +18,7 @@
                     <div class="text-center">
                         <a href="{% url 'cms:index' %}" class="btn btn-primary">Back</a>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGame">Edit</button>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHistory">Add Records</button>
-                        <!-- <a href="{% url 'cms:add_history' game.pk %}" class="btn btn-primary">Add Records</a> -->
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRecord">Add Records</button>
                     </div>  
                 </div>
             </div>    
@@ -120,6 +119,9 @@
 {% include "cms/modals/modal_game.html" %}
 
 <!-- Modal Add Record -->
-{% include "cms/modals/modal_history.html" %}
+{% include "cms/modals/modal_record.html" %}
+
+<!-- Modal Add Player -->
+{% include "cms/modals/modal_player.html" %}
 
 {% endblock %}

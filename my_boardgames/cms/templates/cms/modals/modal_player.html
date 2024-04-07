@@ -1,13 +1,8 @@
-<div class="modal fade" id="modalGame" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalGameLabel" aria-hidden="true">
+<div class="modal fade" id="modalPlayer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalPlayerLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-            {% if game_form.instance.id %}
-                <h1 class="modal-title fs-5" id="modalGameLabel">Edit {{ game }} </h1> 
-            {% else %}
-                <h1 class="modal-title fs-5" id="modalGameLabel">Add Game</h1>
-            {% endif %}
-          
+            <h1 class="modal-title fs-5" id="modalPlayerLabel">Add Player</h1>  
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         {% if game_form.instance.id %}

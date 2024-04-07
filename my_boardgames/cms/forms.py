@@ -38,7 +38,13 @@ class ResultForm(ModelForm):
         model = Result
         fields = ['history', 'player', 'score', 'winner']
         widgets = {
+            'history': forms.Select( attrs={'class': 'form-select', 'aria-label': 'history', 'aria-describedby': 'history'}),
             'player': forms.Select( attrs={'class': 'form-select', 'aria-label': 'player', 'aria-describedby': 'player'}),
             'score': forms.NumberInput( attrs={'class': 'form-control', 'aria-label': 'score', 'aria-describedby': 'score'}),
             'winner': forms.CheckboxInput( attrs={'class': 'form-check-input', 'aria-label': 'winner', 'id': 'winner'}) 
         }
+
+RecordFormset = forms.inlineformset_factory(
+    History, Result, fields='__all__',
+    extra=2, can_delete=False
+)
