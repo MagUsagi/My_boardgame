@@ -1,4 +1,4 @@
-# My Board Game App
+# My Boardgame App
 My Boardgame is an application built using Django to manage your own board games. 
 Each boardgame detail page displays images, number of players, playing time, notes, and game history.
 ## Features
